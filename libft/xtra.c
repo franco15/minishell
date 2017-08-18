@@ -1,43 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   xtra.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/17 20:41:25 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/08/17 20:41:27 by lfranco-         ###   ########.fr       */
+/*   Created: 2017/08/18 04:12:03 by lfranco-          #+#    #+#             */
+/*   Updated: 2017/08/18 04:12:04 by lfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minilibft.h"
 
-# include <stdio.h>
-# include "minilibft.h"
-# include <sys/wait.h>
-# include <limits.h>
-
-# define BUFFSIZE 262144
-
-/*
-** echo.c
-*/
-void	ft_echo(char **s);
-
-/*
-** exit.c
-*/
-void	ft_exit(char **s);
-
-/*
-** minishell.c
-*/
-int		main();
-
-/*
-** utils.c
-*/
-int		is_cmd(char *cmd);
-
-#endif
+int		ft_isallupper(char *s)
+{
+	while (*s)
+	{
+		if (*s < 'A' || *s > 'Z')
+			return (0);
+		s++;
+	}
+	return (1);
+}

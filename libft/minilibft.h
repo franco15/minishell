@@ -80,6 +80,11 @@ void				ft_strdel(char **as);
 /*
 ** strings3.c
 */
-char			**ft_strsplit(char const *s, char c);
+char			**ft_msh_split(char const *s);
+
+/*
+** xtra.c
+*/
+int		ft_isallupper(char *s);
 
 #endif

@@ -12,10 +12,32 @@
 
 #include "minishell.h"
 
-void	ft_echo(char *s)
+static void	echo_env(char *s)
 {
-	if (!s)
+	char	*buff;
+
+	buff = 0;
+	if (!ft_isallupper(&s[1]))
+		return ;
+	if ((buff = getcwd(buff, PATH_MAX)))
+		ft_printf("buff: %s", buff);
+}
+
+void	ft_echo(char **s)
+{
+	int		i;
+
+	i = 0;
+	if (!s[i])
 		ft_printf("\n");
-	else
-		ft_printf("%s\n", s);
+	while (s[++i])
+	{
+		if (s[i] && s[i][0] == '$')
+		{
+			echo_env(s[i]);
+		}
+		else if (s[i])
+			ft_printf("%s ", s[i]);
+	}
+	ft_printf("\n");
 }

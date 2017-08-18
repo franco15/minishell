@@ -14,46 +14,35 @@
 
 static void	mshell_cmds(char **cmd)
 {
-	int		i;
-//	int		ded;   to exit after all cmds (if they exist) are done
+	if (cmd[0] && !ft_strcmp(cmd[0], "exit"))
+		ft_exit(cmd);
+	if (cmd[0] && !ft_strcmp(cmd[0], "echo"))
+		ft_echo(cmd);
+	ft_arrdel((void**)cmd);
+}
 
-	i = -1;
-	while (cmd[++i])
-	{
-		if (!ft_strcmp(cmd[i], "exit\n"))
-			exit(1);
-		if (!ft_strcmp(cmd[i], "echo\n") || !ft_strcmp(cmd[0], "echo"))
-			cmd[i + 1] ? ft_printf("%s\n", cmd[++i]) : ft_printf("\n");
-	}
+static char	**read_input(void)
+{
+	int		b;
+	char	buff[BUFFSIZE];
+	char	**ret;
+
+	ret = 0;
+	if ((b = read(0, buff, BUFFSIZE)))
+		ret = ft_msh_split(buff);
+	ft_bzero((void*)buff, BUFFSIZE);
+	return (ret);
 }
 
 int			main()
 {
-	int		b;
-	pid_t	f;
-	char	buff[BUFFSIZE];
 	char	**av;
 
 	while (42)
 	{
-		f = fork();
-		if (f != 0)
-		{
-			ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
-			wait(&f);
-		}
-		else
-		{
-			if ((b = read(0, buff, BUFFSIZE)))
-			{
-				av = ft_strsplit(buff, ' ');
-				// ft_printf("%s", av[0]);
-				mshell_cmds(av);
-				ft_bzero((void*)buff, BUFFSIZE);
-			}
-		}
-		ft_arrdel((void**)av);
-
+		ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
+		if ((av = read_input()))
+			mshell_cmds(av);
 	}
 	return (0);
 }

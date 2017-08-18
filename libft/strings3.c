@@ -12,14 +12,14 @@
 
 #include "minilibft.h"
 
-static int		ft_wordlen(char const *s, char c, int k)
+static int	ft_wordlen(char const *s, int k)
 {
 	int	i;
 
 	i = 0;
 	while (s[k])
 	{
-		if (s[k] == c)
+		if (s[k] == 34)
 			k++;
 		else
 		{
@@ -30,7 +30,7 @@ static int		ft_wordlen(char const *s, char c, int k)
 	return (i);
 }
 
-static int		ft_countwords(char const *s, char c)
+static int	ft_countwords(char const *s)
 {
 	int i;
 
@@ -39,9 +39,9 @@ static int		ft_countwords(char const *s, char c)
 		return (0);
 	while (*s)
 	{
-		if (*s != c)
+		if (*s != ' ')
 			i++;
-		while (*s != c && *s)
+		while (*s != ' ' && *s)
 			s++;
 		if (!*s)
 			return (i);
@@ -50,30 +50,52 @@ static int		ft_countwords(char const *s, char c)
 	return (i);
 }
 
-char			**ft_strsplit(char const *s, char c)
+static void	del_nl(char *s)
+{
+	int	i;
+
+	i = ft_strlen(s) - 1;
+	if (s[i] == '\n')
+		s[i] = '\0';
+}
+
+static void	fill_arr(char **r, char *s)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = -1;
+	k = 0;
+	while (++i < (ft_countwords(s)))
+	{
+		j = 0;
+		r[i] = (char*)ft_memalloc(sizeof(char) * ft_wordlen(s, k) + 1);
+		while (s[k] && s[k] == ' ')
+			k++;
+		s[k] == 34 ? k++ : 0;
+		while (s[k] && s[k] != ' ' && s[k] != 34)
+			r[i][j++] = s[k++];
+		// if (s[k] && s[k++] == 34 && s[k] == '\n')
+		// 	r[i][j++] = s[k++];
+		// else if (s[k] && s[k] == '\n' && !s[k + 1])
+		// 	k++;
+		r[i][j] = '\0';
+	}
+	del_nl(r[i - 1]);
+	r[i] = 0;
+}
+
+char		**ft_msh_split(char const *s)
 {
 	char	**r;
 	int		i;
-	int		j;
-	int		k;
 
 	if (!s)
 		return (0);
-	i = 0;
-	k = 0;
-	if (!(r = (char**)ft_memalloc(sizeof(char*) * ft_countwords(s, c) + 1)))
+	i = -1;
+	if (!(r = (char**)ft_memalloc(sizeof(char*) * ft_countwords(s) + 1)))
 		return (0);
-	while (i < (ft_countwords(s, c)))
-	{
-		j = 0;
-		r[i] = (char*)ft_memalloc(sizeof(char) * ft_wordlen(s, c, k) + 1);
-		while (s[k] == c && s[k] != '\0')
-			k++;
-		while (s[k] != c && s[k] != '\0')
-			r[i][j++] = s[k++];
-		r[i][j] = '\0';
-		i++;
-	}
-	r[i] = 0;
+	fill_arr(r, (char*)s);
 	return (r);
 }
