@@ -18,7 +18,7 @@
 # include <sys/wait.h>
 # include <limits.h>
 
-# define BUFFSIZE 262144
+# define BUFFSIZE 50
 
 /*
 ** echo.c

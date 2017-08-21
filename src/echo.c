@@ -19,18 +19,22 @@ static void	echo_env(char *s)
 	buff = 0;
 	if (!ft_isallupper(&s[1]))
 		return ;
-	if ((buff = getcwd(buff, PATH_MAX)))
+	if ((buff = getcwd(NULL, 0)))
 		ft_printf("buff: %s", buff);
+	free(buff);
 }
 
 void	ft_echo(char **s)
 {
 	int		i;
 
-	i = 0;
+	i = 1;
 	if (!s[i])
+	{
 		ft_printf("\n");
-	while (s[++i])
+		return ;
+	}
+	while (s[i])
 	{
 		if (s[i] && s[i][0] == '$')
 		{
@@ -38,6 +42,7 @@ void	ft_echo(char **s)
 		}
 		else if (s[i])
 			ft_printf("%s ", s[i]);
+		i++;
 	}
 	ft_printf("\n");
 }

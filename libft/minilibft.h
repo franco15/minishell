@@ -28,6 +28,7 @@ typedef struct		s_list
 ** array.c
 */
 void				ft_arrdel(void **arr);
+size_t				ft_arrlen(void **s);
 
 /*
 ** conv.c
@@ -80,7 +81,7 @@ void				ft_strdel(char **as);
 /*
 ** strings3.c
 */
-char			**ft_msh_split(char const *s);
+char			**ft_msh_split(char *s);
 
 /*
 ** xtra.c

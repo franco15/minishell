@@ -18,6 +18,19 @@ void	ft_arrdel(void **arr)
 
 	i = 0;
 	while (arr[i])
-		ft_memdel(&arr[i++]);
-	ft_memdel(arr);
+	{
+		free(arr[i]);
+		arr[i++] = 0;
+	}
+	free(arr);
+	arr = 0;
+}
+size_t	ft_arrlen(void **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

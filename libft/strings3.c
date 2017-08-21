@@ -12,7 +12,7 @@
 
 #include "minilibft.h"
 
-static int	ft_wordlen(char const *s, int k)
+static int	ft_wordlen(char *s, int k)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ static int	ft_wordlen(char const *s, int k)
 	return (i);
 }
 
-static int	ft_countwords(char const *s)
+static int	ft_countwords(char *s)
 {
 	int i;
 
@@ -41,9 +41,9 @@ static int	ft_countwords(char const *s)
 	{
 		if (*s != ' ')
 			i++;
-		while (*s != ' ' && *s)
+		while (*s && *s != ' ')
 			s++;
-		if (!*s)
+		if (!s)
 			return (i);
 		s++;
 	}
@@ -76,26 +76,21 @@ static void	fill_arr(char **r, char *s)
 		s[k] == 34 ? k++ : 0;
 		while (s[k] && s[k] != ' ' && s[k] != 34)
 			r[i][j++] = s[k++];
-		// if (s[k] && s[k++] == 34 && s[k] == '\n')
-		// 	r[i][j++] = s[k++];
-		// else if (s[k] && s[k] == '\n' && !s[k + 1])
-		// 	k++;
 		r[i][j] = '\0';
 	}
 	del_nl(r[i - 1]);
-	r[i] = 0;
+	// r[i] = 0;
 }
 
-char		**ft_msh_split(char const *s)
+char		**ft_msh_split(char *s)
 {
 	char	**r;
-	int		i;
 
 	if (!s)
 		return (0);
-	i = -1;
-	if (!(r = (char**)ft_memalloc(sizeof(char*) * ft_countwords(s) + 1)))
+	r = (char**)ft_memalloc(sizeof(char*) * ft_countwords(s) + 1);
+	if (!r)
 		return (0);
-	fill_arr(r, (char*)s);
+	fill_arr(r, s);
 	return (r);
 }

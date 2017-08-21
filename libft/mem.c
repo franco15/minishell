@@ -18,13 +18,11 @@ void	*ft_memalloc(size_t size)
 	size_t	i;
 
 	i = 0;
-	if ((p = malloc(size)))
-	{
-		while (i < size)
-			p[i++] = '\0';
-		return (p);
-	}
-	return (0);
+	p = malloc(size);
+	if (!p)
+		return (NULL);
+	ft_memset(p, 0, size);
+	return (p);
 }
 
 void	ft_memdel(void **ap)
