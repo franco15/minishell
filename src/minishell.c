@@ -14,10 +14,15 @@
 
 static void	mshell_cmds(char **cmd)
 {
-	if (cmd[0] && !ft_strcmp(cmd[0], "exit"))
+	int		i = 0;
+
+	if (cmd[0] && !ft_strncmp(cmd[0], "exit", 4))
 		ft_exit(cmd);
-	if (cmd[0] && !ft_strcmp(cmd[0], "echo"))
+	if (cmd[0] && !ft_strncmp(cmd[0], "echo", 4))
 		ft_echo(cmd);
+	while (cmd[i] != 0)
+		ft_memdel((void**)&cmd[i++]);
+	ft_memdel((void**)cmd);
 }
 
 static char	**read_input(void)
@@ -30,7 +35,7 @@ static char	**read_input(void)
 	buff = (char*)ft_memalloc(sizeof(char) * BUFFSIZE);
 	b = read(0, buff, BUFFSIZE);
 	if (b)
-		ret = ft_msh_split(buff);
+		ret = ft_strsplit(buff, ' ');
 	ft_memdel((void**)&buff);
 	return (ret);
 }
@@ -38,17 +43,15 @@ static char	**read_input(void)
 int			main()
 {
 	char	**av;
-	int		i = 0;
 
 	av = 0;
 	while (42)
 	{
 		ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
-		if ((av = read_input()))
-			mshell_cmds(av);
-		while (av[i] != 0)
-			ft_memdel((void**)&av[i++]);
-		ft_memdel((void**)av);
+		av = read_input();
+		if (!av)
+			return (0);
+		mshell_cmds(av);
 	}
 	return (0);
 }

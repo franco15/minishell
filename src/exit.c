@@ -21,6 +21,6 @@ void	ft_exit(char **s)
 	// ft_arrdel((void**)s);
 	while (s[i] != 0)
 		ft_memdel((void**)&s[i++]);
-	// ft_memdel((void**)s);
+	ft_memdel((void**)s);
 	exit(3);
 }

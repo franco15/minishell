@@ -17,11 +17,12 @@ static void	echo_env(char *s)
 	char	*buff;
 
 	buff = 0;
+	ft_printf("%s\n", &s[1]);
 	if (!ft_isallupper(&s[1]))
 		return ;
 	if ((buff = getcwd(NULL, 0)))
 		ft_printf("buff: %s", buff);
-	free(buff);
+	ft_memdel((void**)&buff);
 }
 
 void	ft_echo(char **s)
@@ -38,6 +39,7 @@ void	ft_echo(char **s)
 	{
 		if (s[i] && s[i][0] == '$')
 		{
+			printf("smn\n");
 			echo_env(s[i]);
 		}
 		else if (s[i])
