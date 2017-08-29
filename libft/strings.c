@@ -14,7 +14,7 @@
 
 char	*ft_strnew(size_t size)
 {
-	return ((char*)ft_memalloc(size + 1));
+	return ((char*)ft_memalloc(sizeof(char) * (size + 1)));
 }
 
 size_t	ft_strlen(const char *s)

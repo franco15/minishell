@@ -5,22 +5,9 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/18 02:44:35 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/08/18 02:44:37 by lfranco-         ###   ########.fr       */
+/*   Created: 2017/08/28 17:09:34 by lfranco-          #+#    #+#             */
+/*   Updated: 2017/08/28 17:09:36 by lfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_exit(char **s)
-{
-	(void)s;
-	int	i;
-
-	i = 0;
-	// ft_arrdel((void**)s);
-	while (s[i] != 0)
-		ft_memdel((void**)&s[i++]);
-	ft_memdel((void**)s);
-	exit(3);
-}

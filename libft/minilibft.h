@@ -82,7 +82,8 @@ void	ft_strdel(char **as);
 /*
 ** strings3.c
 */
-char	**ft_strsplit(char const *s, char c);
+char	*ft_strndup(const char *s1, size_t l);
+char	*ft_strncpy(char *dst, const char *src, size_t len);
 
 /*
 ** xtra.c

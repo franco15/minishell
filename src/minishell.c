@@ -5,53 +5,52 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/17 20:41:17 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/08/17 20:41:18 by lfranco-         ###   ########.fr       */
+/*   Created: 2017/08/28 17:09:20 by lfranco-          #+#    #+#             */
+/*   Updated: 2017/08/28 17:09:22 by lfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	mshell_cmds(char **cmd)
+static void	msh_cmds(char **cmd, char **env)
 {
-	int		i = 0;
-
-	if (cmd[0] && !ft_strncmp(cmd[0], "exit", 4))
-		ft_exit(cmd);
-	if (cmd[0] && !ft_strncmp(cmd[0], "echo", 4))
-		ft_echo(cmd);
-	while (cmd[i] != 0)
-		ft_memdel((void**)&cmd[i++]);
-	ft_memdel((void**)cmd);
+	if (cmd[0] && !ft_strcmp(cmd[0], "echo"))
+		ft_echo(cmd, env);
 }
 
-static char	**read_input(void)
+static char **read_input(void)
 {
-	int		b;
-	char	*buff;
-	char	**ret;
+	char	buff[BUFFSIZE];
 
-	ret = 0;
-	buff = (char*)ft_memalloc(sizeof(char) * BUFFSIZE);
-	b = read(0, buff, BUFFSIZE);
-	if (b)
-		ret = ft_strsplit(buff, ' ');
-	ft_memdel((void**)&buff);
-	return (ret);
+	ft_bzero(buff, BUFFSIZE);
+	read(0, buff, BUFFSIZE);
+	if (!ft_strncmp(buff, "exit", 4))
+		exit(1);
+	return (ft_split_input(buff));
 }
 
-int			main()
+int		main(int ac, char **argv, char **env)
 {
+	int 	i;
 	char	**av;
+	(void)ac;
+	(void)argv;
 
-	av = 0;
+	// i = 0;
+	// if (env)
+	// 	while (env[i])
+	// 		printf("%s\n", env[i++]);
 	while (42)
 	{
+		i = -1;
 		ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
 		av = read_input();
-		if (!av)
-			return (0);
-		mshell_cmds(av);
+		msh_cmds(av, env);
+		// if (av)
+		// 	printf("smn\n");
+		// while (av[++i])
+		// 	printf("%s  %d\n", av[i], i);
+		ft_avdel(av);
 	}
 	return (0);
 }

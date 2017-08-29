@@ -14,14 +14,16 @@
 
 void	*ft_memalloc(size_t size)
 {
-	char	*p;
-	size_t	i;
+	void	*p;
 
-	i = 0;
+	p = 0;
 	p = malloc(size);
 	if (!p)
+	{
+		ft_printf("qp en ft_memalloc\n");
 		return (NULL);
-	ft_memset(p, 0, size);
+	}
+	ft_bzero(p, size);
 	return (p);
 }
 

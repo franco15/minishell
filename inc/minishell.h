@@ -18,12 +18,12 @@
 # include <sys/wait.h>
 # include <limits.h>
 
-# define BUFFSIZE 50
+# define BUFFSIZE 100
 
 /*
 ** echo.c
 */
-void	ft_echo(char **s);
+void	ft_echo(char **s, char **env);
 
 /*
 ** exit.c
@@ -31,13 +31,20 @@ void	ft_echo(char **s);
 void	ft_exit(char **s);
 
 /*
+** ft_split_input.c
+*/
+char	**ft_split_input(char *s);
+
+/*
 ** minishell.c
 */
-int		main();
+int		main(int ac, char **argv, char **env);
 
 /*
 ** utils.c
 */
 int		is_cmd(char *cmd);
+void	ft_avdel(char **av);
+int		get_env(char *s, char **env);
 
 #endif

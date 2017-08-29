@@ -31,3 +31,45 @@ int		is_cmd(char *cmd)
 	}
 	return (0);
 }
+
+void	ft_avdel(char **av)
+{
+	char	**tmp;
+
+	tmp = av;
+	if (!av)
+		return ;
+	while (*tmp)
+	{
+		free(*tmp);
+		*tmp = 0;
+		tmp++;
+	}
+	free(av);
+	av = 0;
+}
+
+int		get_env(char *s, char **env)
+{
+	int	i;
+	int	j;
+	char	*tmp;
+
+	i = 0;
+	j = ft_strlen(&s[1]);
+	tmp = ft_strnew(j + 1);
+	tmp = ft_strncpy(tmp, &s[1], j);
+	tmp[j] = '=';
+	tmp[j + 1] = '\0';
+	while (env[i])
+	{
+		if (!ft_strncmp(tmp, env[i], j + 1))
+		{
+			ft_memdel((void**)&tmp);
+			return (i);
+		}
+		i++;
+	}
+	ft_memdel((void**)&tmp);
+	return (-1);
+}
