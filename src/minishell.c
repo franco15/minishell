@@ -14,8 +14,16 @@
 
 static void	msh_cmds(char **cmd, char **env)
 {
+	if (cmd[0] && !ft_strcmp(cmd[0], "cd"))
+		ft_cd(cmd);
+	if (cmd[0] && !ft_strcmp(cmd[0], "env"))
+		ft_env(cmd);
 	if (cmd[0] && !ft_strcmp(cmd[0], "echo"))
 		ft_echo(cmd, env);
+	if (cmd[0] && !ft_strcmp(cmd[0], "setenv"))
+		ft_setenv(cmd);
+	if (cmd[0] && !ft_strcmp(cmd[0], "unsetenv"))
+		ft_unsetenv(cmd);
 }
 
 static char **read_input(void)
@@ -36,20 +44,12 @@ int		main(int ac, char **argv, char **env)
 	(void)ac;
 	(void)argv;
 
-	// i = 0;
-	// if (env)
-	// 	while (env[i])
-	// 		printf("%s\n", env[i++]);
 	while (42)
 	{
 		i = -1;
 		ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
 		av = read_input();
 		msh_cmds(av, env);
-		// if (av)
-		// 	printf("smn\n");
-		// while (av[++i])
-		// 	printf("%s  %d\n", av[i], i);
 		ft_avdel(av);
 	}
 	return (0);

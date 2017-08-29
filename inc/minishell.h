@@ -21,9 +21,19 @@
 # define BUFFSIZE 100
 
 /*
+** cd.c
+*/
+void	ft_cd(char **s);
+
+/*
 ** echo.c
 */
 void	ft_echo(char **s, char **env);
+
+/*
+** env.c
+*/
+void	ft_env(char **s);
 
 /*
 ** exit.c
@@ -39,6 +49,16 @@ char	**ft_split_input(char *s);
 ** minishell.c
 */
 int		main(int ac, char **argv, char **env);
+
+/*
+** setenv.c
+*/
+void	ft_setenv(char **s);
+
+/*
+** unsetenv.c
+*/
+void	ft_unsetenv(char **s);
 
 /*
 ** utils.c
