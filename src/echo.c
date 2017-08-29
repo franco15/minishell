@@ -19,19 +19,28 @@ static void	print_env(char *s, char **env)
 	i = get_env(s, env);
 	if (i < 0)
 		return ;
-	ft_printf("%s\n", &env[i][ft_strlen(s)]);
+	ft_printf("%s ", &env[i][ft_strlen(s)]);
 }
 
 void		ft_echo(char **s, char **env)
 {
 	int	i;
+	int	n;
 
 	i = 0;
-	if (!s[1])
-		ft_printf("\n");
-	while (s[++i])
+	n = 0;
+	if (s[1])
 	{
-		if (s[i][0] == '$')
-			print_env(s[i], env);
+		if (!ft_strcmp(s[1], "-n"))
+			n = 1;
+		while (s[++i])
+		{
+			if (s[i][0] == '$')
+				print_env(s[i], env);
+			else
+				ft_printf("%s ", s[i]);
+		}
 	}
+	if (n == 0)
+		ft_printf("\n");
 }
