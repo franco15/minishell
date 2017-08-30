@@ -22,27 +22,29 @@ static void	print_env(char *s, char **env)
 	ft_printf("%s ", &env[i][ft_strlen(s)]);
 }
 
-void		ft_echo(char **s, char **env)
+void		ft_echo(char **av, int ac, char **env)
 {
 	int	i;
 	int	n;
 
 	i = 0;
-	n = 0;
-	if (s[1])
+	n = -1;
+	if (ac > 1)
 	{
-		if (!ft_strcmp(s[1], "-n"))
+		if (!ft_strcmp(av[1], "-n"))
 			n = 1;
-		if (!ft_strcmp(s[1], "-n") && !s[2])
+		if (!ft_strcmp(av[1], "-n") && ac < 3)
 			return ;
-		while (s[++i])
+		while (av[++i])
 		{
-			if (s[i][0] == '$')
-				print_env(s[i], env);
-			else
-				ft_printf("%s ", s[i]);
+			if (n == 1)
+			{
+				n = 0;
+				continue ;
+			}
+			av[i][0] == '$' ? print_env(av[i], env) : ft_printf("%s ", av[i]);
 		}
 	}
-	if (n == 0)
+	if (++n == 0)
 		ft_printf("\n");
 }

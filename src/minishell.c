@@ -15,15 +15,15 @@
 static void	msh_cmds(char **cmd, char **env)
 {
 	if (cmd[0] && !ft_strcmp(cmd[0], "cd"))
-		ft_cd(cmd);
+		ft_cd(cmd, ft_arrlen((void**)cmd));
 	if (cmd[0] && !ft_strcmp(cmd[0], "env"))
-		ft_env(cmd);
+		ft_env(cmd, ft_arrlen((void**)cmd), env);
 	if (cmd[0] && !ft_strcmp(cmd[0], "echo"))
-		ft_echo(cmd, env);
+		ft_echo(cmd, ft_arrlen((void**)cmd), env);
 	if (cmd[0] && !ft_strcmp(cmd[0], "setenv"))
-		ft_setenv(cmd);
+		ft_setenv(cmd, ft_arrlen((void**)cmd));
 	if (cmd[0] && !ft_strcmp(cmd[0], "unsetenv"))
-		ft_unsetenv(cmd);
+		ft_unsetenv(cmd, ft_arrlen((void**)cmd));
 }
 
 static char **read_input(void)

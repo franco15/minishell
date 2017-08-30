@@ -12,7 +12,8 @@
 
 #include "minishell.h"
 
-void	ft_unsetenv(char **s)
+void	ft_unsetenv(char **s, int ac)
 {
 	(void)s;
+	(void)ac;
 }

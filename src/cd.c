@@ -12,7 +12,8 @@
 
 #include "minishell.h"
 
-void	ft_cd(char **s)
+void	ft_cd(char **s, int ac)
 {
 	(void)s;
+	(void)ac;
 }

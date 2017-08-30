@@ -23,22 +23,22 @@
 /*
 ** cd.c
 */
-void	ft_cd(char **s);
+void	ft_cd(char **av, int ac);
 
 /*
 ** echo.c
 */
-void	ft_echo(char **s, char **env);
+void	ft_echo(char **s, int ac, char **env);
 
 /*
 ** env.c
 */
-void	ft_env(char **s);
+void	ft_env(char **av, int ac, char **env);
 
 /*
 ** exit.c
 */
-void	ft_exit(char **s);
+void	ft_exit(char **av, int ac);
 
 /*
 ** ft_split_input.c
@@ -53,12 +53,12 @@ int		main(int ac, char **argv, char **env);
 /*
 ** setenv.c
 */
-void	ft_setenv(char **s);
+void	ft_setenv(char **av, int ac);
 
 /*
 ** unsetenv.c
 */
-void	ft_unsetenv(char **s);
+void	ft_unsetenv(char **av, int ac);
 
 /*
 ** utils.c
