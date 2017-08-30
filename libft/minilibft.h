@@ -29,6 +29,7 @@
 */
 void	ft_arrdel(void **arr);
 size_t	ft_arrlen(void **s);
+char	**ft_arrdup(char **s);
 
 /*
 ** conv.c

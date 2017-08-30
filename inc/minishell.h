@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <string.h>
+# include <errno.h>
 # include "minilibft.h"
 # include <sys/wait.h>
 # include <limits.h>
@@ -23,7 +25,7 @@
 /*
 ** cd.c
 */
-void	ft_cd(char **av, int ac);
+void	ft_cooldown(char **av, int ac, char **env);
 
 /*
 ** echo.c
@@ -66,5 +68,7 @@ void	ft_unsetenv(char **av, int ac);
 int		is_cmd(char *cmd);
 void	ft_avdel(char **av);
 int		get_env(char *s, char **env);
+void	ft_pwd(char **env);
+void	update_pwd(char **env, char *np);
 
 #endif

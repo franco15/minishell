@@ -73,3 +73,30 @@ int		get_env(char *s, char **env)
 	ft_memdel((void**)&tmp);
 	return (-1);
 }
+
+void	ft_pwd(char **env)
+{
+	int		e;
+	char	*pwd;
+
+	e = get_env("$PWD", env);
+	pwd = ft_strdup(&env[e][4]);
+	ft_printf("%s\n", pwd);
+	ft_memdel((void**)&pwd);
+}
+
+void	update_pwd(char **env, char *np)
+{
+	int		i;
+	int		j;
+	char	*t;
+
+	i = get_env("$OLDPWD", env);
+	free(env[i]);
+	j = get_env("$PWD", env);
+	t = ft_strdup(env[j]);
+	env[i] = ft_strjoin("OLD", t);
+	free(env[j]);
+	ft_memdel((void**)&t);
+	env[j] = ft_strjoin("PWD=", np);
+}

@@ -34,3 +34,21 @@ size_t	ft_arrlen(void **s)
 		i++;
 	return (i);
 }
+
+char	**ft_arrdup(char **s)
+{
+	int		i;
+	int		j;
+	char	**ret;
+
+	i = ft_arrlen((void**)s);
+	j = i;
+	ret = (char**)ft_memalloc(sizeof(char*) * (i + 1));
+	i = 0;
+	while (j--)
+	{
+		ret[i] = ft_strdup(s[i]);
+		i++;
+	}
+	return (ret);
+}
