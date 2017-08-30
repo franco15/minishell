@@ -23,6 +23,8 @@ static int	word_len(char *s)
 		i++;
 	while (s[i] && s[i] != '"' && s[i] != ' ' && s[i] != '\n')
 	{
+		if (s[i] == 39 && s[i + 1] == 92 && s[i + 2] == 99 && s[i + 3] == 39)
+			return (i);
 		i++;
 		j++;
 	}
@@ -53,7 +55,11 @@ static int	count_words(char *s)
 		if (*s != ' ' && *s != '\n')
 			i++;
 		while (*s && *s != ' ')
+		{
+			if (*s == 39 && *(s + 1) == 92 && *(s + 2) == 99 && *(s + 3) == 39)
+				return (i);
 			s++;
+		}
 		while (*s && *s == ' ')
 			s++;
 	}

@@ -33,6 +33,8 @@ void		ft_echo(char **s, char **env)
 	{
 		if (!ft_strcmp(s[1], "-n"))
 			n = 1;
+		if (!ft_strcmp(s[1], "-n") && !s[2])
+			return ;
 		while (s[++i])
 		{
 			if (s[i][0] == '$')
