@@ -17,6 +17,7 @@ void	ft_env(char **s, int ac, char **env)
 	int	i;
 
 	(void)s;
+
 	i = 0;
 	if (ac == 1)
 		while (env[i])

@@ -55,7 +55,7 @@ int		main(int ac, char **argv, char **env);
 /*
 ** setenv.c
 */
-void	ft_setenv(char **av, int ac);
+void	ft_setenv(char **av, int ac, char **env);
 
 /*
 ** unsetenv.c
@@ -65,8 +65,8 @@ void	ft_unsetenv(char **av, int ac);
 /*
 ** utils.c
 */
-int		is_cmd(char *cmd);
-void	ft_avdel(char **av);
+// int		is_cmd(char *cmd);
+// void	ft_avdel(char **av);
 int		get_env(char *s, char **env);
 void	ft_pwd(char **env);
 void	update_pwd(char **env, char *np);

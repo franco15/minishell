@@ -21,7 +21,7 @@ static void	msh_cmds(char **cmd, char **env)
 	else if (cmd[0] && !ft_strcmp(cmd[0], "echo"))
 		ft_echo(cmd, ft_arrlen((void**)cmd), env);
 	else if (cmd[0] && !ft_strcmp(cmd[0], "setenv"))
-		ft_setenv(cmd, ft_arrlen((void**)cmd));
+		ft_setenv(cmd, ft_arrlen((void**)cmd), env);
 	else if (cmd[0] && !ft_strcmp(cmd[0], "unsetenv"))
 		ft_unsetenv(cmd, ft_arrlen((void**)cmd));
 	else if (cmd[0] && !ft_strcmp(cmd[0], "pwd"))
@@ -38,7 +38,7 @@ static char **read_input(char **ev)
 	read(0, buff, BUFFSIZE);
 	if (!ft_strncmp(buff, "exit", 4))
 	{
-		ft_avdel(ev);
+		ft_arrdel((void**)ev);
 		exit(1);
 	}
 	return (ft_split_input(buff));
@@ -59,8 +59,8 @@ int		main(int ac, char **argv, char **env)
 		ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
 		av = read_input(ev);
 		msh_cmds(av, ev);
-		ft_avdel(av);
+		ft_arrdel((void**)av);
 	}
-	ft_avdel(ev);
+	ft_arrdel((void**)ev);
 	return (0);
 }

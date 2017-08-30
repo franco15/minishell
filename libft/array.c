@@ -14,13 +14,16 @@
 
 void	ft_arrdel(void **arr)
 {
-	int	i;
+	void	**tmp;
 
-	i = 0;
-	while (arr[i])
+	tmp = arr;
+	if (!arr)
+		return ;
+	while (*tmp)
 	{
-		free(arr[i]);
-		arr[i++] = 0;
+		free(*tmp);
+		*tmp = 0;
+		tmp++;
 	}
 	free(arr);
 	arr = 0;
