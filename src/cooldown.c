@@ -12,6 +12,25 @@
 
 #include "minishell.h"
 
+static void	cooldown_env(char *s, char **env)
+{
+	int		e;
+	int		cd;
+	char	*path;
+
+	e = get_env(s, env);
+	cd = 0;
+	while (env[e][cd] && env[e][cd] != '=')
+		cd++;
+	path = ft_strdup(&env[e][++cd]);
+	cd = chdir(path);
+	if (cd == 0)
+		update_pwd(env, path);
+	else
+		ft_printf("ded: %s", strerror(errno));
+	ft_memdel((void**)&path);
+}
+
 static void	ft_chdir(char **av, char **env)
 {
 	int		e;
@@ -19,7 +38,7 @@ static void	ft_chdir(char **av, char **env)
 	char	*path;
 	char	*tmp;
 
-	if (av[1][ft_strlen(av[1])] != '/')
+	if (av[1][ft_strlen(av[1])] != '/' && ft_strcmp(av[1], "/"))
 	{
 		tmp = ft_strjoin("/", av[1]);
 		free(av[1]);
@@ -28,8 +47,7 @@ static void	ft_chdir(char **av, char **env)
 	}
 	e = get_env("$PWD", env);
 	tmp = ft_strdup(av[1]);
-	path = ft_strjoin(&env[e][4], tmp);
-	printf("path: %s\n", path);
+	path = ft_strcmp(av[1], "/") ? ft_strjoin(&env[e][4], tmp) : ft_strdup("/");
 	cd = chdir(path);
 	if (cd == 0)
 		update_pwd(env, path);
@@ -81,6 +99,8 @@ void		ft_cooldown(char **s, int ac, char **env)
 		go_home(env);
 	else if (ac == 2 && !ft_strcmp(s[1], "-"))
 		go_back(env);
+	else if (ac == 2 && s[1][0] == '$')
+		cooldown_env(s[1], env);
 	else if (ac == 2)
 		ft_chdir(s, env);
 }

@@ -16,16 +16,18 @@ static void	msh_cmds(char **cmd, char **env)
 {
 	if (cmd[0] && !ft_strcmp(cmd[0], "cd"))
 		ft_cooldown(cmd, ft_arrlen((void**)cmd), env);
-	if (cmd[0] && !ft_strcmp(cmd[0], "env"))
+	else if (cmd[0] && !ft_strcmp(cmd[0], "env"))
 		ft_env(cmd, ft_arrlen((void**)cmd), env);
-	if (cmd[0] && !ft_strcmp(cmd[0], "echo"))
+	else if (cmd[0] && !ft_strcmp(cmd[0], "echo"))
 		ft_echo(cmd, ft_arrlen((void**)cmd), env);
-	if (cmd[0] && !ft_strcmp(cmd[0], "setenv"))
+	else if (cmd[0] && !ft_strcmp(cmd[0], "setenv"))
 		ft_setenv(cmd, ft_arrlen((void**)cmd));
-	if (cmd[0] && !ft_strcmp(cmd[0], "unsetenv"))
+	else if (cmd[0] && !ft_strcmp(cmd[0], "unsetenv"))
 		ft_unsetenv(cmd, ft_arrlen((void**)cmd));
-	if (cmd[0] && !ft_strcmp(cmd[0], "pwd"))
+	else if (cmd[0] && !ft_strcmp(cmd[0], "pwd"))
 		ft_pwd(env);
+	else
+		ft_printf("minishell: command not found: %s\n", cmd[0]);
 }
 
 static char **read_input(char **ev)
