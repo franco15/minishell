@@ -27,32 +27,31 @@ static void	cooldown_env(char *s, char **env)
 	if (cd == 0)
 		update_pwd(env, path);
 	else
-		ft_printf("ded: %s", strerror(errno));
+		ft_printf("cd: no such file or directory: %s\n", path);
 	ft_memdel((void**)&path);
 }
 
-static void	ft_chdir(char **av, char **env)
+static void	ft_chdir(char *av, char **env)
 {
 	int		e;
 	int		cd;
 	char	*path;
 	char	*tmp;
 
-	if (av[1][ft_strlen(av[1])] != '/' && ft_strcmp(av[1], "/"))
-	{
-		tmp = ft_strjoin("/", av[1]);
-		free(av[1]);
-		av[1] = ft_strdup(tmp);
-		free(tmp);
-	}
+	tmp = 0;
+	if (av[ft_strlen(av)] != '/' && av[0] != '/' && ft_strcmp(av, "/"))
+		tmp = ft_strjoin("/", av);
 	e = get_env("$PWD", env);
-	tmp = ft_strdup(av[1]);
-	path = ft_strcmp(av[1], "/") ? ft_strjoin(&env[e][4], tmp) : ft_strdup("/");
-	cd = chdir(path);
-	if (cd == 0)
-		update_pwd(env, path);
+	tmp = tmp != 0 ? tmp : ft_strdup(av);
+	if (av[0] == '~')
+		path = ft_strjoin(&env[get_env("$HOME", env)][5], &av[1]);
+	else if (!ft_strcmp(av, "/"))
+		path = ft_strdup("/");
 	else
-		ft_printf("ded: %s\n", strerror(errno));
+		path = av[0] != '/' ? ft_strjoin(&env[e][4], tmp) : ft_strdup(av);
+	cd = chdir(path);
+	cd == 0 ? update_pwd(env, path) :
+			ft_printf("cd: no such file or directory: %s\n", av);
 	ft_memdel((void**)&tmp);
 	ft_memdel((void**)&path);
 }
@@ -72,35 +71,50 @@ static void	go_back(char **env)
 		update_pwd(env, path);
 	}
 	else
-		ft_printf("ded: %s\n", strerror(errno));
+		ft_printf("cd: no such file or directory: %s\n", path);
 	ft_memdel((void**)&path);
 }
 
-static void	go_home(char **env)
+// static void	go_home(char **env)
+// {
+// 	int		e;
+// 	int		cooldown;
+// 	char	*path;
+//
+// 	e = get_env("$HOME", env);
+// 	path = ft_strdup(&env[e][5]);
+// 	cooldown = chdir(path);
+// 	if (cooldown == 0)
+// 		update_pwd(env, path);
+// 	else
+// 		ft_printf("cd: no such file or directory: %s\n", path);
+// 	ft_memdel((void**)&path);
+// }
+
+void		ft_cooldown(char **s, int ac, char **env)
 {
 	int		e;
 	int		cooldown;
 	char	*path;
 
-	e = get_env("$HOME", env);
-	path = ft_strdup(&env[e][5]);
-	cooldown = chdir(path);
-	if (cooldown == 0)
-		update_pwd(env, path);
-	else
-		ft_printf("ded: %s\n", strerror(errno));
-	ft_memdel((void**)&path);
-}
-
-void		ft_cooldown(char **s, int ac, char **env)
-{
-	(void)s;
-	if (ac == 1)
-		go_home(env);
+	e = 0;
+	path = 0;
+	cooldown = 0;
+	if (ac == 1 || (ac == 2 && !ft_strcmp(s[1], "~")))
+	{
+		e = get_env("$HOME", env);
+		path = ft_strdup(&env[e][5]);
+		cooldown = chdir(path);
+		if (cooldown == 0)
+			update_pwd(env, path);
+		else
+			ft_printf("cd: no such file or directory: %s\n", path);
+		ft_memdel((void**)&path);
+	}
 	else if (ac == 2 && !ft_strcmp(s[1], "-"))
 		go_back(env);
 	else if (ac == 2 && s[1][0] == '$')
 		cooldown_env(s[1], env);
 	else if (ac == 2)
-		ft_chdir(s, env);
+		ft_chdir(s[1], env);
 }

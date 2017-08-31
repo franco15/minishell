@@ -100,3 +100,18 @@ void	update_pwd(char **env, char *np)
 	ft_memdel((void**)&t);
 	env[j] = ft_strjoin("PWD=", np);
 }
+
+char	**create_env(char **env)
+{
+	int		i;
+	char	**ret;
+
+	i = 0;
+	ret = (char**)ft_memalloc(sizeof(char*) * BUFFSIZE);
+	while (env[i])
+	{
+		ret[i] = ft_strdup(env[i]);
+		i++;
+	}
+	return (ret);
+}

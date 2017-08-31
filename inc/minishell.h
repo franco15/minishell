@@ -60,7 +60,7 @@ void	ft_setenv(char **av, int ac, char **env);
 /*
 ** unsetenv.c
 */
-void	ft_unsetenv(char **av, int ac);
+void	ft_unsetenv(char **av, int ac, char **env);
 
 /*
 ** utils.c
@@ -70,5 +70,6 @@ void	ft_unsetenv(char **av, int ac);
 int		get_env(char *s, char **env);
 void	ft_pwd(char **env);
 void	update_pwd(char **env, char *np);
+char	**create_env(char **env);
 
 #endif

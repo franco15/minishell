@@ -48,19 +48,19 @@ static int	count_words(char *s)
 	int	i;
 
 	i = 0;
-	while (*s && *s == ' ')
+	while (*s && (*s == ' ' || *s == ';'))
 		s++;
 	while (*s)
 	{
-		if (*s != ' ' && *s != '\n')
+		if (*s != ' ' && *s != '\n' && *s != ';')
 			i++;
-		while (*s && *s != ' ')
+		while (*s && *s != ' ' && *s != ';')
 		{
 			if (*s == 39 && *(s + 1) == 92 && *(s + 2) == 99 && *(s + 3) == 39)
 				return (i);
 			s++;
 		}
-		while (*s && *s == ' ')
+		while (*s && (*s == ' ' || *s == ';'))
 			s++;
 	}
 	return (i);
@@ -77,10 +77,10 @@ char	**ft_split_input(char *s)
 	j = 0;
 	while (j < i)
 	{
-		while (*s && *s == ' ')
+		while (*s && (*s == ' ' || *s == ';'))
 			s++;
 		ret[j] = get_word(&*s);
-		while (*s && *s != ' ')
+		while (*s && *s != ' ' && *s != ';')
 			s++;
 		j++;
 	}

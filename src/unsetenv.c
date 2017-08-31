@@ -12,8 +12,40 @@
 
 #include "minishell.h"
 
-void	ft_unsetenv(char **s, int ac)
+static void	remove_env(char **env, int e)
 {
-	(void)s;
-	(void)ac;
+	free(env[e]);
+	while (env[e + 1])
+	{
+		env[e] = env[e + 1];
+		e++;
+	}
+	env[e] = 0;
+}
+
+void	ft_unsetenv(char **s, int ac, char **env)
+{
+	int		i;
+	int		e;
+
+	i = 0;
+	e = 0;
+	if (ac == 1)
+	{
+		ft_printf("unsetenv: Too few arguments.\n");
+		return ;
+	}
+	while (s[++i])
+	{
+		e = 0;
+		while (env[e])
+		{
+			if (!ft_strncmp(s[i], env[e], ft_strlen(s[i])))
+			{
+				remove_env(env, e);
+				break ;
+			}
+			e++;
+		}
+	}
 }

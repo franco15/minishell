@@ -23,7 +23,7 @@ static void	msh_cmds(char **cmd, char **env)
 	else if (cmd[0] && !ft_strcmp(cmd[0], "setenv"))
 		ft_setenv(cmd, ft_arrlen((void**)cmd), env);
 	else if (cmd[0] && !ft_strcmp(cmd[0], "unsetenv"))
-		ft_unsetenv(cmd, ft_arrlen((void**)cmd));
+		ft_unsetenv(cmd, ft_arrlen((void**)cmd), env);
 	else if (cmd[0] && !ft_strcmp(cmd[0], "pwd"))
 		ft_pwd(env);
 	else
@@ -52,7 +52,7 @@ int		main(int ac, char **argv, char **env)
 	(void)ac;
 	(void)argv;
 
-	ev = ft_arrdup(env);
+	ev = create_env(env);
 	while (42)
 	{
 		i = -1;
