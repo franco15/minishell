@@ -6,7 +6,7 @@
 /*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/28 17:09:20 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/08/28 17:09:22 by lfranco-         ###   ########.fr       */
+/*   Updated: 2017/08/31 11:52:39 by coco             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	msh_cmds(char **cmd, char **env)
 	else if (cmd[0] && !ft_strcmp(cmd[0], "pwd"))
 		ft_pwd(env);
 	else
-		ft_printf("minishell: command not found: %s\n", cmd[0]);
+		ft_exe(cmd, ft_arrlen((void**)cmd), env);
 }
 
 static char **read_input(char **ev)
@@ -54,8 +54,8 @@ int		main(int ac, char **argv, char **env)
 	ev = create_env(env);
 	while (42)
 	{
-		ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
-		// ft_printf("minishell\n->");
+		// ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
+		ft_printf("minishell\n->");
 		av = read_input(ev);
 		msh_cmds(av, ev);
 		ft_arrdel((void**)av);

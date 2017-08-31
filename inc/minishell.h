@@ -38,6 +38,11 @@ void	ft_echo(char **s, int ac, char **env);
 void	ft_env(char **av, int ac, char **env);
 
 /*
+** exe.c
+*/
+void	ft_exe(char **av, int ac, char **env);
+
+/*
 ** exit.c
 */
 void	ft_exit(char **av, int ac);
