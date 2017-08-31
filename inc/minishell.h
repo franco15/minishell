@@ -18,6 +18,7 @@
 # include <errno.h>
 # include "minilibft.h"
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <limits.h>
 
 # define BUFFSIZE 100
@@ -40,7 +41,7 @@ void	ft_env(char **av, int ac, char **env);
 /*
 ** exe.c
 */
-void	ft_exe(char **av, int ac, char **env);
+void	ft_exe(char **av, char **env);
 
 /*
 ** exit.c

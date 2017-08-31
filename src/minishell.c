@@ -27,7 +27,7 @@ static void	msh_cmds(char **cmd, char **env)
 	else if (cmd[0] && !ft_strcmp(cmd[0], "pwd"))
 		ft_pwd(env);
 	else
-		ft_exe(cmd, ft_arrlen((void**)cmd), env);
+		ft_exe(cmd, env);
 }
 
 static char **read_input(char **ev)
