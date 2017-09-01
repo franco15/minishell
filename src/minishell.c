@@ -54,8 +54,8 @@ int		main(int ac, char **argv, char **env)
 	ev = create_env(env);
 	while (42)
 	{
-		// ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
-		ft_printf("minishell\n->");
+		ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
+		// ft_printf("minishell\n->");
 		av = read_input(ev);
 		msh_cmds(av, ev);
 		ft_arrdel((void**)av);

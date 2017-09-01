@@ -85,10 +85,13 @@ void	ft_strdel(char **as);
 */
 char	*ft_strndup(const char *s1, size_t l);
 char	*ft_strncpy(char *dst, const char *src, size_t len);
+char	**ft_strsplit(char const *s, char c);
 
 /*
 ** xtra.c
 */
 int		ft_isallupper(char *s);
+int		ft_countwords(char const *s, char c);
+int		ft_wordlen(char const *s, char c, int k);
 
 #endif

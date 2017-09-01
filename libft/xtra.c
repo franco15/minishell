@@ -22,3 +22,41 @@ int		ft_isallupper(char *s)
 	}
 	return (1);
 }
+
+int		ft_countwords(char const *s, char c)
+{
+	int i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (*s)
+	{
+		if (*s != c)
+			i++;
+		while (*s != c && *s)
+			s++;
+		if (!*s)
+			return (i);
+		s++;
+	}
+	return (i);
+}
+
+int		ft_wordlen(char const *s, char c, int k)
+{
+	int	i;
+
+	i = 0;
+	while (s[k])
+	{
+		if (s[k] == c)
+			k++;
+		else
+		{
+			k++;
+			i++;
+		}
+	}
+	return (i);
+}

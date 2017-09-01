@@ -15,8 +15,8 @@
 
 # include <stdio.h>
 # include <string.h>
-# include <errno.h>
-# include "minilibft.h"
+# include <unistd.h>
+# include "../libft/minilibft.h"
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <limits.h>
