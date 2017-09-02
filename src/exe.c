@@ -12,34 +12,43 @@
 
 #include "minishell.h"
 
-static void	run_bin(char **av, char **env)
+static int	run_exe(char *exe, char **av, char **env)
 {
-	(void)av;
-	(void)env;
-	printf("smn 'corriendo bin'\n");
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		if (execve(exe, av, env) != -1)
+			return (1);
+	}
+	else if (pid < 0)
+		ft_printf("Error Forking\n");
+	wait(0);
+	return (0);
 }
 
-static void	run_exe(char *exe, char **av, char **env)
-{
-	(void)av;
-	(void)env;
-	(void)exe;
-	printf("smn 'corriendo exe'\n");
-}
-
-static int	check_if_bin(char *bin, char **bins)
+static int	run_something(char **bins, char **av, char **env)
 {
 	int		i;
-	int		j;
+	char	*tmp;
+	char	*tmp2;
 
-	i = 0;
-	j = ft_strlen(bin) - 1;
-	while (bin[j] != '/')
-		--j;
-	--j;
-	while (bins[i])
-		if (!ft_strncmp(bins[i++], bin, j))
+	i = -1;
+	while (bins[++i])
+	{
+		tmp = ft_strjoin(bins[i], "/");
+		tmp2 = ft_strjoin(tmp, av[0]);
+		if (access(tmp2, X_OK) == 0)
+		{
+			run_exe(tmp2, av, env);
+			ft_memdel((void**)&tmp);
+			ft_memdel((void**)&tmp2);
 			return (1);
+		}
+		ft_memdel((void**)&tmp);
+		ft_memdel((void**)&tmp2);
+	}
 	return (0);
 }
 
@@ -58,11 +67,14 @@ void	ft_exe(char **av, char **env)
 	if (lstat(av[0], &st) != -1)
 	{
 		if (!ft_strncmp(av[0], "./", 2))
-			run_exe((tmp = ft_strdup(av[2])), av, env);
-		else if (check_if_bin(av[0], bins))
-			run_bin(av, env);
+		{
+			run_exe((tmp = ft_strdup(&av[0][2])), av, env);
+			ft_memdel((void**)&tmp);
+		}
+		else if (access(av[0], X_OK) == 0)
+			run_exe(av[0], av, env);
 	}
-	else
+	else if (run_something(bins, av, env) == 0)
 		ft_printf("minishell: command not found: %s\n", av[0]);
 	ft_arrdel((void**)bins);
 }

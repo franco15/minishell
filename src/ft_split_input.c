@@ -21,7 +21,8 @@ static int	word_len(char *s)
 	j = 0;
 	while (s[i] && s[i] == '"')
 		i++;
-	while (s[i] && s[i] != '"' && s[i] != ' ' && s[i] != '\n' && s[i] != ';')
+	while (s[i] && s[i] != '"' && s[i] != ' ' && s[i] != '\t' &&
+			s[i] != '\n')
 	{
 		if (s[i] == 39 && s[i + 1] == 92 && s[i + 2] == 99 && s[i + 3] == 39)
 			return (i);
@@ -48,19 +49,19 @@ static int	count_words(char *s)
 	int	i;
 
 	i = 0;
-	while (*s && (*s == ' ' || *s == ';'))
+	while (*s && (*s == ' ' || *s == '\t'))
 		s++;
 	while (*s)
 	{
-		if (*s != ' ' && *s != '\n' && *s != ';')
+		if (*s != ' ' && *s != '\t' && *s != '\n')
 			i++;
-		while (*s && *s != ' ' && *s != ';')
+		while (*s && *s != ' ' && *s != '\t')
 		{
 			if (*s == 39 && *(s + 1) == 92 && *(s + 2) == 99 && *(s + 3) == 39)
 				return (i);
 			s++;
 		}
-		while (*s && (*s == ' ' || *s == ';'))
+		while (*s && (*s == ' ' || *s == '\t'))
 			s++;
 	}
 	return (i);
@@ -70,25 +71,17 @@ char	**ft_split_input(char *s)
 {
 	int		i;
 	int		j;
-	int		k;
 	char	**ret;
 
 	i = count_words(s);
-	j = -1;
-	k = 0;
-	while (s[++j])
-		if (s[j] == ';')
-			k++;
-	ret = (char**)ft_memalloc(sizeof(char*) * (i + j + 1));
+	ret = (char**)ft_memalloc(sizeof(char*) * (i + 1));
 	j = 0;
 	while (j < i)
 	{
-		while (*s && (*s == ' ' || *s == ';'))
+		while (*s && (*s == ' ' || *s == '\t'))
 			s++;
-		if (*(s - 1) == ';')
-			ret[j++] = ft_strdup(";");
 		ret[j] = get_word(&*s);
-		while (*s && *s != ' ' && *s != ';')
+		while (*s && *s != ' ' && *s != '\t')
 			s++;
 		j++;
 	}

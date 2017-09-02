@@ -12,12 +12,22 @@
 
 #include "minishell.h"
 
-static void	msh_cmds(char **cmd, char **env)
+static void	ft_exit(char **cmd, char **env)
 {
+	ft_arrdel((void**)cmd);
+	ft_arrdel((void**)env);
+	exit(1);
+}
+
+static void	msh_cmds(char *av, char **env)
+{
+	char	**cmd;
+
+	cmd = ft_split_input(av);
 	if (cmd[0] && !ft_strcmp(cmd[0], "cd"))
 		ft_cooldown(cmd, ft_arrlen((void**)cmd), env);
 	else if (cmd[0] && !ft_strcmp(cmd[0], "env"))
-		ft_env(cmd, ft_arrlen((void**)cmd), env);
+		ft_env(ft_arrlen((void**)cmd), env);
 	else if (cmd[0] && !ft_strcmp(cmd[0], "echo"))
 		ft_echo(cmd, ft_arrlen((void**)cmd), env);
 	else if (cmd[0] && !ft_strcmp(cmd[0], "setenv"))
@@ -26,26 +36,27 @@ static void	msh_cmds(char **cmd, char **env)
 		ft_unsetenv(cmd, ft_arrlen((void**)cmd), env);
 	else if (cmd[0] && !ft_strcmp(cmd[0], "pwd"))
 		ft_pwd(env);
+	else if (cmd[0] && !ft_strcmp(cmd[0], "exit"))
+		ft_exit(cmd, env);
 	else
 		ft_exe(cmd, env);
+	ft_arrdel((void**)cmd);
 }
 
-static char **read_input(char **ev)
+static char **read_input(void)
 {
 	char	buff[BUFFSIZE];
 
 	ft_bzero(buff, BUFFSIZE);
 	read(0, buff, BUFFSIZE);
-	if (!ft_strncmp(buff, "exit", 4))
-	{
-		ft_arrdel((void**)ev);
-		exit(1);
-	}
-	return (ft_split_input(buff));
+	// if (ft_strchr(buff, ';'))
+		return (ft_strsplit(buff, ';'));
+	// return (ft_split_input(buff));
 }
 
 int		main(int ac, char **argv, char **env)
 {
+	int		i;
 	char	**av;
 	char	**ev;
 	(void)ac;
@@ -54,10 +65,17 @@ int		main(int ac, char **argv, char **env)
 	ev = create_env(env);
 	while (42)
 	{
-		// ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
-		ft_printf("minishell\n->");
-		av = read_input(ev);
-		msh_cmds(av, ev);
+		i = 0;
+		ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
+		// ft_printf("minishell\n->");
+		av = read_input();
+		if (!ft_arrlen((void**)av))
+		{
+			ft_arrdel((void**)av);
+			continue ;
+		}
+		while (av[i])
+			msh_cmds(av[i++], ev);
 		ft_arrdel((void**)av);
 	}
 	ft_arrdel((void**)ev);

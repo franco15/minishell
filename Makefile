@@ -11,8 +11,8 @@ INC_DIR = ./inc/
 LIBFT_DIR = ./libft/
 
 # Source files and object files
-SRC_FILES = cooldown.c echo.c env.c exe2.c exit.c ft_split_input.c minishell.c \
-			setenv.c unsetenv.c utils.c
+SRC_FILES = cooldown.c echo.c env.c exe.c ft_split_input.c minishell.c \
+			utils.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Paths

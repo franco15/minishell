@@ -32,23 +32,6 @@
 // 	return (0);
 // }
 
-// void	ft_avdel(char **av)
-// {
-// 	char	**tmp;
-//
-// 	tmp = av;
-// 	if (!av)
-// 		return ;
-// 	while (*tmp)
-// 	{
-// 		free(*tmp);
-// 		*tmp = 0;
-// 		tmp++;
-// 	}
-// 	free(av);
-// 	av = 0;
-// }
-
 int		get_env(char *s, char **env)
 {
 	int	i;
@@ -90,7 +73,9 @@ void	update_pwd(char **env, char *np)
 	int		i;
 	int		j;
 	char	*t;
+	char	*npp;
 
+	npp = ft_strchr(np, '.') ? check_if_goin_to_parent_dir(np) : ft_strdup(np);
 	i = get_env("$OLDPWD", env);
 	free(env[i]);
 	j = get_env("$PWD", env);
@@ -98,7 +83,8 @@ void	update_pwd(char **env, char *np)
 	env[i] = ft_strjoin("OLD", t);
 	free(env[j]);
 	ft_memdel((void**)&t);
-	env[j] = ft_strjoin("PWD=", np);
+	env[j] = ft_strjoin("PWD=", npp);
+	ft_memdel((void**)&npp);
 }
 
 char	**create_env(char **env)

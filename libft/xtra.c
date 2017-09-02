@@ -34,7 +34,7 @@ int		ft_countwords(char const *s, char c)
 	{
 		if (*s != c)
 			i++;
-		while (*s != c && *s)
+		while (*s && *s != c)
 			s++;
 		if (!*s)
 			return (i);
@@ -43,18 +43,18 @@ int		ft_countwords(char const *s, char c)
 	return (i);
 }
 
-int		ft_wordlen(char const *s, char c, int k)
+int		ft_wordlen(char const *s, char c)
 {
 	int	i;
 
 	i = 0;
-	while (s[k])
+	while (*s)
 	{
-		if (s[k] == c)
-			k++;
+		if (*s == c)
+			return (i);
 		else
 		{
-			k++;
+			s++;
 			i++;
 		}
 	}

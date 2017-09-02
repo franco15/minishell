@@ -46,26 +46,23 @@ char	*ft_strncpy(char *dst, const char *src, size_t len)
 
 char	**ft_strsplit(char const *s, char c)
 {
-	char	**r;
 	int		i;
-	int		j;
 	int		k;
+	char	**r;
 
 	if (!s)
 		return (0);
 	i = 0;
-	k = 0;
-	if (!(r = (char**)ft_memalloc(sizeof(char*) * (ft_countwords(s, c) + 1))))
+	k = ft_countwords(s, c);
+	if (!(r = (char**)ft_memalloc(sizeof(char*) * (k + 1))))
 		return (0);
-	while (i < (ft_countwords(s, c)))
+	while (i < k)
 	{
-		j = 0;
-		r[i] = (char*)ft_memalloc(sizeof(char) * (ft_wordlen(s, c, k) + 1));
-		while (s[k] == c && s[k] != '\0')
-			k++;
-		while (s[k] != c && s[k] != '\0')
-			r[i][j++] = s[k++];
-		r[i][j] = '\0';
+		while (*s && *s == c)
+			s++;
+		r[i] = ft_strndup(&*s, ft_wordlen(&*s, c));
+		while (*s && *s != c)
+			s++;
 		i++;
 	}
 	return (r);

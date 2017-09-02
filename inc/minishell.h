@@ -27,6 +27,7 @@
 ** cd.c
 */
 void	ft_cooldown(char **av, int ac, char **env);
+char	*check_if_goin_to_parent_dir(char *p);
 
 /*
 ** echo.c
@@ -36,17 +37,14 @@ void	ft_echo(char **s, int ac, char **env);
 /*
 ** env.c
 */
-void	ft_env(char **av, int ac, char **env);
+void	ft_env(int ac, char **env);
+void	ft_setenv(char **av, int ac, char **env);
+void	ft_unsetenv(char **av, int ac, char **env);
 
 /*
 ** exe.c
 */
 void	ft_exe(char **av, char **env);
-
-/*
-** exit.c
-*/
-void	ft_exit(char **av, int ac);
 
 /*
 ** ft_split_input.c
@@ -57,16 +55,6 @@ char	**ft_split_input(char *s);
 ** minishell.c
 */
 int		main(int ac, char **argv, char **env);
-
-/*
-** setenv.c
-*/
-void	ft_setenv(char **av, int ac, char **env);
-
-/*
-** unsetenv.c
-*/
-void	ft_unsetenv(char **av, int ac, char **env);
 
 /*
 ** utils.c

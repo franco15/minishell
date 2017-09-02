@@ -78,6 +78,7 @@ size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strcat(char *s1, const char *s2);
+char	*ft_strchr(const char *s, int c);
 void	ft_strdel(char **as);
 
 /*
@@ -92,6 +93,6 @@ char	**ft_strsplit(char const *s, char c);
 */
 int		ft_isallupper(char *s);
 int		ft_countwords(char const *s, char c);
-int		ft_wordlen(char const *s, char c, int k);
+int		ft_wordlen(char const *s, char c);
 
 #endif

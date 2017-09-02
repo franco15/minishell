@@ -12,6 +12,22 @@
 
 #include "minishell.h"
 
+char	*check_if_goin_to_parent_dir(char *p)
+{
+	int		i;
+	char	*ret;
+
+	i = ft_strlen(p);
+	ret = ft_strchr(p, '.');
+	if (ft_strncmp(ret, "..", 2))
+		return (ft_strdup(p));
+	i -= 3;
+	while (p[--i] && p[i] != '/')
+		;
+	ret = ft_strndup(p, i);
+	return (ret);
+}
+
 static void	cooldown_env(char *s, char **env)
 {
 	int		e;
@@ -74,22 +90,6 @@ static void	go_back(char **env)
 		ft_printf("cd: no such file or directory: %s\n", path);
 	ft_memdel((void**)&path);
 }
-
-// static void	go_home(char **env)
-// {
-// 	int		e;
-// 	int		cooldown;
-// 	char	*path;
-//
-// 	e = get_env("$HOME", env);
-// 	path = ft_strdup(&env[e][5]);
-// 	cooldown = chdir(path);
-// 	if (cooldown == 0)
-// 		update_pwd(env, path);
-// 	else
-// 		ft_printf("cd: no such file or directory: %s\n", path);
-// 	ft_memdel((void**)&path);
-// }
 
 void		ft_cooldown(char **s, int ac, char **env)
 {
