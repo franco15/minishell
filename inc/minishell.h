@@ -59,8 +59,6 @@ int		main(int ac, char **argv, char **env);
 /*
 ** utils.c
 */
-// int		is_cmd(char *cmd);
-// void	ft_avdel(char **av);
 int		get_env(char *s, char **env);
 void	ft_pwd(char **env);
 void	update_pwd(char **env, char *np);

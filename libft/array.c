@@ -28,6 +28,7 @@ void	ft_arrdel(void **arr)
 	free(arr);
 	arr = 0;
 }
+
 size_t	ft_arrlen(void **s)
 {
 	int	i;

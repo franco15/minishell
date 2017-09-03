@@ -43,25 +43,23 @@ static void	msh_cmds(char *av, char **env)
 	ft_arrdel((void**)cmd);
 }
 
-static char **read_input(void)
+static char	**read_input(void)
 {
 	char	buff[BUFFSIZE];
 
 	ft_bzero(buff, BUFFSIZE);
 	read(0, buff, BUFFSIZE);
-	// if (ft_strchr(buff, ';'))
-		return (ft_strsplit(buff, ';'));
-	// return (ft_split_input(buff));
+	return (ft_strsplit(buff, ';'));
 }
 
-int		main(int ac, char **argv, char **env)
+int			main(int ac, char **argv, char **env)
 {
 	int		i;
 	char	**av;
 	char	**ev;
+
 	(void)ac;
 	(void)argv;
-
 	ev = create_env(env);
 	while (42)
 	{

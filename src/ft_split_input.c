@@ -67,7 +67,7 @@ static int	count_words(char *s)
 	return (i);
 }
 
-char	**ft_split_input(char *s)
+char		**ft_split_input(char *s)
 {
 	int		i;
 	int		j;

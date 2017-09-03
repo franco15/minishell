@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 static void	remove_env(char **env, int e)
 {
 	free(env[e]);
@@ -22,7 +23,7 @@ static void	remove_env(char **env, int e)
 	env[e] = 0;
 }
 
-void	ft_unsetenv(char **s, int ac, char **env)
+void		ft_unsetenv(char **s, int ac, char **env)
 {
 	int		i;
 	int		e;
@@ -49,7 +50,7 @@ void	ft_unsetenv(char **s, int ac, char **env)
 	}
 }
 
-void	ft_setenv(char **s, int ac, char **env)
+void		ft_setenv(char **s, int ac, char **env)
 {
 	int		i;
 	char	*tmp;
@@ -72,7 +73,7 @@ void	ft_setenv(char **s, int ac, char **env)
 	}
 }
 
-void	ft_env(int ac, char **env)
+void		ft_env(int ac, char **env)
 {
 	int	i;
 

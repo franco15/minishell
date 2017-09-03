@@ -12,30 +12,10 @@
 
 #include "minishell.h"
 
-// int		is_cmd(char *cmd)
-// {
-// 	if (cmd)
-// 	{
-// 		if (!ft_strcmp(cmd, "cd"))
-// 			return (1);
-// 		if (!ft_strcmp(cmd, "env"))
-// 			return (1);
-// 		if (!ft_strcmp(cmd, "echo"))
-// 			return (1);
-// 		if (!ft_strcmp(cmd, "exit"))
-// 			return (1);
-// 		if (!ft_strcmp(cmd, "setenv"))
-// 			return (1);
-// 		if (!ft_strcmp(cmd, "unsetenv"))
-// 			return (1);
-// 	}
-// 	return (0);
-// }
-
 int		get_env(char *s, char **env)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*tmp;
 
 	i = 0;

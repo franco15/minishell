@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*check_if_goin_to_parent_dir(char *p)
+char		*check_if_goin_to_parent_dir(char *p)
 {
 	int		i;
 	char	*ret;

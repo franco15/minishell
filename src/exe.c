@@ -35,6 +35,8 @@ static int	run_something(char **bins, char **av, char **env)
 	char	*tmp2;
 
 	i = -1;
+	if (bins == 0)
+		return (0);
 	while (bins[++i])
 	{
 		tmp = ft_strjoin(bins[i], "/");
@@ -52,18 +54,16 @@ static int	run_something(char **bins, char **av, char **env)
 	return (0);
 }
 
-void	ft_exe(char **av, char **env)
+void		ft_exe(char **av, char **env)
 {
-	int		e;
-	char	**bins;
-	char	*tmp;
+	int			e;
+	char		**bins;
+	char		*tmp;
 	struct stat	st;
 
 	tmp = 0;
 	e = get_env("$PATH", env);
-	if (e == -1)
-		return ;
-	bins = ft_strsplit(&env[get_env("$PATH", env)][5], ':');
+	bins = e != -1 ? ft_strsplit(&env[get_env("$PATH", env)][5], ':') : 0;
 	if (lstat(av[0], &st) != -1)
 	{
 		if (!ft_strncmp(av[0], "./", 2))
@@ -76,5 +76,6 @@ void	ft_exe(char **av, char **env)
 	}
 	else if (run_something(bins, av, env) == 0)
 		ft_printf("minishell: command not found: %s\n", av[0]);
-	ft_arrdel((void**)bins);
+	if (bins != 0)
+		ft_arrdel((void**)bins);
 }

@@ -17,13 +17,6 @@
 # include <stdarg.h>
 # include <stdlib.h>
 
-// typedef struct		s_list
-// {
-// 	void			*content;
-// 	size_t			size;
-// 	struct s_list	*next;
-// }					t_list;
-
 /*
 ** array.c
 */
