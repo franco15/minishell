@@ -81,3 +81,19 @@ char	**create_env(char **env)
 	}
 	return (ret);
 }
+
+char	*ft_getcwd(void)
+{
+	int		i;
+	char	*buff;
+	char	*ret;
+
+	buff = NULL;
+	buff = getcwd(buff, 100);
+	i = ft_strlen(buff);
+	while (buff[--i] != '/')
+		;
+	ret = ft_strdup(&buff[++i]);
+	ft_memdel((void**)&buff);
+	return (ret);
+}

@@ -60,10 +60,10 @@ void		repalce_env(char **env, int e, char *val)
 	tmp2 = 0;
 	while (env[e][i] != '=')
 		i++;
-	tmp = ft_strndup(env[e], i);
+	tmp = ft_strndup(env[e], ++i);
 	ft_memdel((void**)&env[e]);
 	if (!val)
-		env[e] = ft_strjoin(tmp, "=");
+		env[e] = ft_strdup(tmp);
 	else
 	{
 		tmp2 = ft_strjoin(tmp, val);

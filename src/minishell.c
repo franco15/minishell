@@ -55,6 +55,7 @@ static char	**read_input(void)
 int			main(int ac, char **argv, char **env)
 {
 	int		i;
+	char	*cwd;
 	char	**av;
 	char	**ev;
 
@@ -64,8 +65,7 @@ int			main(int ac, char **argv, char **env)
 	while (42)
 	{
 		i = 0;
-		ft_printfcolor("%s\n%s ", "minishell", 32, "->", 93);
-		// ft_printf("minishell\n->");
+		ft_printfcolor("%s\n%s ", (cwd = ft_getcwd()), 32, "->", 93);
 		av = read_input();
 		if (!ft_arrlen((void**)av))
 		{
@@ -75,6 +75,7 @@ int			main(int ac, char **argv, char **env)
 		while (av[i])
 			msh_cmds(av[i++], ev);
 		ft_arrdel((void**)av);
+		ft_memdel((void**)&cwd);
 	}
 	ft_arrdel((void**)ev);
 	return (0);

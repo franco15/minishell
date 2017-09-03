@@ -63,5 +63,6 @@ int		get_env(char *s, char **env);
 void	ft_pwd(char **env);
 void	update_pwd(char **env, char *np);
 char	**create_env(char **env);
+char	*ft_getcwd(void);
 
 #endif
