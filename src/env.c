@@ -50,22 +50,51 @@ void		ft_unsetenv(char **s, int ac, char **env)
 	}
 }
 
+void		repalce_env(char **env, int e, char *val)
+{
+	int		i;
+	char	*tmp;
+	char	*tmp2;
+
+	i = 0;
+	tmp2 = 0;
+	while (env[e][i] != '=')
+		i++;
+	tmp = ft_strndup(env[e], i);
+	ft_memdel((void**)&env[e]);
+	if (!val)
+		env[e] = ft_strjoin(tmp, "=");
+	else
+	{
+		tmp2 = ft_strjoin(tmp, val);
+		env[e] = ft_strdup(tmp2);
+		ft_memdel((void**)&tmp2);
+	}
+	ft_memdel((void**)&tmp);
+}
+
 void		ft_setenv(char **s, int ac, char **env)
 {
 	int		i;
+	int		e;
 	char	*tmp;
 
 	i = 0;
 	tmp = 0;
+	e = 0;
 	if (ac == 1)
 		ft_env(ac, env);
 	else if (ac == 2)
 	{
+		if ((e = get_env(s[1], env)) != -1)
+			return (repalce_env(env, e, 0));
 		i = ft_arrlen((void**)env);
 		env[i] = ft_strjoin(s[1], "=");
 	}
 	else if (ac == 3)
 	{
+		if ((e = get_env(s[1], env)) != -1)
+			return (repalce_env(env, e, s[2]));
 		i = ft_arrlen((void**)env);
 		tmp = ft_strjoin(s[1], "=");
 		env[i] = ft_strjoin(tmp, s[2]);

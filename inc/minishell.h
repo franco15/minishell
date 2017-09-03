@@ -21,7 +21,7 @@
 # include <sys/stat.h>
 # include <limits.h>
 
-# define BUFFSIZE 100
+# define BUFFSIZE 1000
 
 /*
 ** cd.c

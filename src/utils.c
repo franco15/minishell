@@ -19,9 +19,9 @@ int		get_env(char *s, char **env)
 	char	*tmp;
 
 	i = 0;
-	j = ft_strlen(&s[1]);
+	j = s[0] == '$' ? ft_strlen(&s[1]) : ft_strlen(s);
 	tmp = ft_strnew(j + 1);
-	tmp = ft_strncpy(tmp, &s[1], j);
+	tmp = ft_strncpy(tmp, s[0] == '$' ? &s[1] : s, j);
 	tmp[j] = '=';
 	tmp[j + 1] = '\0';
 	while (env[i])
