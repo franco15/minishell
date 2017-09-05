@@ -24,6 +24,11 @@ static void	msh_cmds(char *av, char **env)
 	char	**cmd;
 
 	cmd = ft_split_input(av);
+	if (!cmd[0])
+	{
+		ft_arrdel((void**)cmd);
+		return ;
+	}
 	if (cmd[0] && !ft_strcmp(cmd[0], "cd"))
 		ft_cooldown(cmd, ft_arrlen((void**)cmd), env);
 	else if (cmd[0] && !ft_strcmp(cmd[0], "env"))
@@ -67,11 +72,11 @@ int			main(int ac, char **argv, char **env)
 		i = 0;
 		ft_printfcolor("%s\n%s ", (cwd = ft_getcwd()), 32, "->", 93);
 		av = read_input();
-		if (!ft_arrlen((void**)av))
-		{
-			ft_arrdel((void**)av);
-			continue ;
-		}
+		// if (!ft_strlen(av[0]) || !ft_strcmp(av[0], "\n"))
+		// {
+		// 	ft_arrdel((void**)av);
+		// 	continue ;
+		// }
 		while (av[i])
 			msh_cmds(av[i++], ev);
 		ft_arrdel((void**)av);
